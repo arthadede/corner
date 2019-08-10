@@ -1,3 +1,3 @@
-export default () => (
-  <h1>Hello World</h1>
-)
+import { Dashboard } from '../src/views';
+
+export default Dashboard;
