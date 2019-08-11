@@ -1,13 +1,21 @@
-const { createServer } = require('http');
+const express = require('express');
 const next = require('next');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
-const handler = app.getRequestHandler();
+const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  createServer(handler).listen(port, err => {
+  const server = express();
+
+  server.use('/api', () => console.log('API Corner'));
+
+  server.get('/login', (req, res) => app.render(req, res, '/login', req.query));
+
+  server.get('*', (req, res) => handle(req, res));
+
+  server.listen(port, err => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
   });
