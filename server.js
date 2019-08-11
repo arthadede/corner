@@ -15,6 +15,9 @@ app.prepare().then(() => {
   server.get('/choose', (req, res) =>
     app.render(req, res, '/list-app', req.query)
   );
+  server.get('/cashier', (req, res) =>
+    app.render(req, res, '/list-outlet', req.query)
+  );
 
   server.get('*', (req, res) => handle(req, res));
 

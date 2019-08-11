@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AppList = () => {
+const OutletList = () => {
   const classes = useStyles();
 
   return (
@@ -34,18 +34,23 @@ const AppList = () => {
           align="center"
           className={classes.title}
         >
-          SELECT APPS
+          SELECT OUTLET
         </Typography>
         <Box display="flex" flexDirection="row">
           <ButtonPaper
             className={classes.button}
-            src="/static/images/app-list/cashier.png"
-            label="CASHIER"
+            src="/static/images/app-list/outlet.png"
+            label="OUTLET 1"
           />
           <ButtonPaper
             className={classes.button}
-            src="/static/images/app-list/backoffice.png"
-            label="BACK OFFICE"
+            src="/static/images/app-list/outlet.png"
+            label="OUTLET 2"
+          />
+          <ButtonPaper
+            className={classes.button}
+            src="/static/images/app-list/outlet.png"
+            label="OUTLET 3"
           />
         </Box>
       </div>
@@ -53,4 +58,4 @@ const AppList = () => {
   );
 };
 
-export default AppList;
+export default OutletList;
