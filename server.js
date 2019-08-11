@@ -12,6 +12,9 @@ app.prepare().then(() => {
   server.use('/api', () => console.log('API Corner'));
 
   server.get('/login', (req, res) => app.render(req, res, '/login', req.query));
+  server.get('/choose', (req, res) =>
+    app.render(req, res, '/list-app', req.query)
+  );
 
   server.get('*', (req, res) => handle(req, res));
 
