@@ -12,7 +12,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import withWidth from '@material-ui/core/withWidth';
 import Divider from '@material-ui/core/Divider';
 import {
   ListItemDropdown,
@@ -173,14 +172,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const BackOfficeLayout = props => {
-  const { name, width, onBreakpoint, children } = props;
+  const { name, children } = props;
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-
-  React.useEffect(() => {
-    onBreakpoint(width);
-  }, [width]);
 
   return (
     <div className={classes.root}>
@@ -338,14 +333,10 @@ const BackOfficeLayout = props => {
 };
 
 BackOfficeLayout.displayName = 'BackOffice-Layout';
-BackOfficeLayout.defaultProps = {
-  onBreakpoint: () => {}
-};
+
 BackOfficeLayout.propTypes = {
   name: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  width: PropTypes.string,
-  onBreakpoint: PropTypes.func
 };
 
-export default withWidth()(BackOfficeLayout);
+export default BackOfficeLayout;
