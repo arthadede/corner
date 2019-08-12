@@ -15,7 +15,7 @@ export default {
   secondary: {
     contrastText: white,
     dark: colors.blue[900],
-    main: colors.grey[400],
+    main: colors.blueGrey[600],
     light: colors.grey[400]
   },
   success: {
@@ -42,13 +42,29 @@ export default {
     main: colors.red[600],
     light: colors.red[400]
   },
+  grey: {
+    50: '#fafafa',
+    100: '#f5f5f5',
+    200: '#eeeeee',
+    300: '#e0e0e0',
+    400: '#bdbdbd',
+    500: '#9e9e9e',
+    600: '#757575',
+    700: '#616161',
+    800: '#424242',
+    900: '#212121',
+    A100: '#d5d5d5',
+    A200: '#aaaaaa',
+    A400: '#303030',
+    A700: '#616161'
+  },
   text: {
     primary: colors.blueGrey[900],
     secondary: colors.blueGrey[600],
     link: colors.blue[600]
   },
   background: {
-    default: '#F4F6F8',
+    default: '#F8FAFC',
     paper: white
   },
   icon: colors.blueGrey[600],

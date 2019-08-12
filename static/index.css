@@ -4,6 +4,7 @@ html {
 
 body {
   height: 100%;
+  display: flex;
 }
 
 a {
@@ -11,5 +12,7 @@ a {
 }
 
 #__next {
+  display: flex;
   height: 100%;
+  width: 100%;
 }
