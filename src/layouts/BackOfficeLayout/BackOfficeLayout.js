@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import withWidth from '@material-ui/core/withWidth';
 import Divider from '@material-ui/core/Divider';
 import {
   ListItemDropdown,
@@ -22,7 +23,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import NotificationsIcon from '@material-ui/icons/NotificationsNone';
 import PowerIcon from '@material-ui/icons/PowerSettingsNew';
-import routesBO from '../../../routesBackOffice';
+import routesBO from '../../routes';
 
 const drawerWidth = 280;
 
@@ -112,7 +113,6 @@ const useStyles = makeStyles(theme => ({
     ...theme.typography.body2
   },
   content: {
-    display: 'flex',
     height: `calc(100% - 64px)`,
     marginTop: 64,
     marginLeft: drawerWidth,
@@ -136,17 +136,15 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3)
   },
   show: {
-    display: 'initial',
     opacity: 1,
-    transition: theme.transitions.create(['display', 'opacity'], {
+    transition: theme.transitions.create(['opacity'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     })
   },
   hide: {
-    display: 'none',
     opacity: 0,
-    transition: theme.transitions.create(['display', 'opacity'], {
+    transition: theme.transitions.create(['opacity'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     })
@@ -158,7 +156,7 @@ const useStyles = makeStyles(theme => ({
     height: 100,
     width: 100,
     marginBottom: theme.spacing(2),
-    transition: theme.transitions.create(['width', 'height'], {
+    transition: theme.transitions.create(['width', 'height', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     })
@@ -167,7 +165,7 @@ const useStyles = makeStyles(theme => ({
     height: 56,
     width: 56,
     marginBottom: 0,
-    transition: theme.transitions.create(['width', 'height'], {
+    transition: theme.transitions.create(['width', 'height', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     })
@@ -175,10 +173,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const BackOfficeLayout = props => {
-  const { name, children } = props;
+  const { name, width, onBreakpoint, children } = props;
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+
+  React.useEffect(() => {
+    onBreakpoint(width);
+  }, [width]);
 
   return (
     <div className={classes.root}>
@@ -273,6 +275,8 @@ const BackOfficeLayout = props => {
         <Divider />
         <List>
           {routesBO.map((route, key) => {
+            const RouteIcon = route.icon;
+
             if (route.children) {
               const items = route.children;
 
@@ -281,7 +285,7 @@ const BackOfficeLayout = props => {
                   <ListItemDropdownText>
                     <ListItem button key={route.page}>
                       <ListItemIcon className={classes.menuIcon}>
-                        {route.icon}
+                        <RouteIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary={route.name}
@@ -310,7 +314,7 @@ const BackOfficeLayout = props => {
               return (
                 <ListItem button key={key} className={classes.menu}>
                   <ListItemIcon className={classes.menuIcon}>
-                    {route.icon}
+                    <RouteIcon />
                   </ListItemIcon>
                   <ListItemText
                     primary={route.name}
@@ -334,9 +338,14 @@ const BackOfficeLayout = props => {
 };
 
 BackOfficeLayout.displayName = 'BackOffice-Layout';
+BackOfficeLayout.defaultProps = {
+  onBreakpoint: () => {}
+};
 BackOfficeLayout.propTypes = {
   name: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  width: PropTypes.string,
+  onBreakpoint: PropTypes.func
 };
 
-export default BackOfficeLayout;
+export default withWidth()(BackOfficeLayout);

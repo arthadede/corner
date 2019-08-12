@@ -1,4 +1,3 @@
-import React from 'react';
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import ReceiptIcon from '@material-ui/icons/ReceiptOutlined';
@@ -9,10 +8,10 @@ import StoreIcon from '@material-ui/icons/StoreOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 
 export default [
-  { name: 'Dashboard', page: 'index', path: '/', icon: <DashboardIcon /> },
+  { name: 'Dashboard', page: 'index', path: '/', icon: DashboardIcon },
   {
     name: 'Reports',
-    icon: <TimelineIcon />,
+    icon: TimelineIcon,
     children: [
       { name: 'Sales', page: 'report-sales', path: '/reports/sales' },
       {
@@ -26,7 +25,7 @@ export default [
   },
   {
     name: 'Library',
-    icon: <FavoriteIcon />,
+    icon: FavoriteIcon,
     children: [
       { name: 'Item Library', page: 'library-items', path: '/library/items' },
       {
@@ -51,7 +50,7 @@ export default [
   },
   {
     name: 'Inventory',
-    icon: <ReceiptIcon />,
+    icon: ReceiptIcon,
     children: [
       {
         name: 'Summary',
@@ -82,13 +81,13 @@ export default [
   },
   {
     name: 'Costumers',
-    icon: <SupervisorIcon />,
+    icon: SupervisorIcon,
     page: 'costumers',
     path: '/costumers'
   },
   {
     name: 'Employees',
-    icon: <LockIcon />,
+    icon: LockIcon,
     children: [
       {
         name: 'Employee Accounts',
@@ -104,7 +103,7 @@ export default [
   },
   {
     name: 'Outlets',
-    icon: <StoreIcon />,
+    icon: StoreIcon,
     children: [
       { name: 'Profile', page: 'outlets-profile', path: '/outlets/profile' },
       { name: 'Receipt', page: 'outlets-receipt', path: '/outlets/receipt' }
@@ -112,7 +111,7 @@ export default [
   },
   {
     name: 'Settings',
-    icon: <SettingsIcon />,
+    icon: SettingsIcon,
     children: [
       { name: 'Account', page: 'settings-profile', path: '/settings/profile' },
       { name: 'Outlets', page: 'settings-outlets', path: '/settings/outlets' },

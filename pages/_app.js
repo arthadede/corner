@@ -7,6 +7,12 @@ import NoSsr from '@material-ui/core/NoSsr';
 import theme from '../src/theme';
 
 class MyApp extends App {
+  constructor(props) {
+    super(props);
+    this.state = {
+      breakpoint: null
+    };
+  }
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -17,6 +23,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
+    const rootState = this.state;
 
     return (
       <Container>
@@ -27,8 +34,19 @@ class MyApp extends App {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Component.Layout name={Component.pageTitle} {...pageProps}>
-              <Component {...pageProps} />
+            <Component.Layout
+              name={Component.pageTitle}
+              onBreakpoint={value =>
+                this.setState(state => {
+                  return {
+                    ...state,
+                    breakpoint: value
+                  };
+                })
+              }
+              {...pageProps}
+            >
+              <Component {...pageProps} {...rootState} />
             </Component.Layout>
           </ThemeProvider>
         </NoSsr>
