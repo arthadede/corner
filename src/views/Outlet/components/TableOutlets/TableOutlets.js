@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CustomizedTable from '../../../../components/CustomizedTable';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/AddCircleOutline';
 
 const columns = [
   {
@@ -22,6 +26,16 @@ const columns = [
     key: 'fullname',
     title: 'Fullname',
     render: text => [text.firstname, text.lastname].join(' ')
+  },
+  {
+    key: 'action',
+    title: 'Action',
+    width: 160,
+    render: () => (
+      <IconButton>
+        <AddIcon />
+      </IconButton>
+    )
   }
 ];
 
@@ -35,11 +49,72 @@ const dataSource = [
     id: 2,
     firstname: 'Dede',
     lastname: 'Testing'
+  },
+  {
+    id: 3,
+    firstname: 'Artha',
+    lastname: 'Suryawan'
+  },
+  {
+    id: 4,
+    firstname: 'Dede',
+    lastname: 'Testing'
+  },
+  {
+    id: 5,
+    firstname: 'Artha',
+    lastname: 'Suryawan'
+  },
+  {
+    id: 6,
+    firstname: 'Dede',
+    lastname: 'Testing'
+  },
+  {
+    id: 7,
+    firstname: 'Artha',
+    lastname: 'Suryawan'
+  },
+  {
+    id: 8,
+    firstname: 'Dede',
+    lastname: 'Testing'
+  },
+  {
+    id: 9,
+    firstname: 'Artha',
+    lastname: 'Suryawan'
+  },
+  {
+    id: 10,
+    firstname: 'Dede',
+    lastname: 'Testing'
+  },
+  {
+    id: 11,
+    firstname: 'Dede',
+    lastname: 'Testing'
   }
 ];
 
+const FooterCustom = (
+  <TableRow>
+    <TableCell>Field 1</TableCell>
+    <TableCell>Field 2</TableCell>
+    <TableCell>Field 3</TableCell>
+    <TableCell>Field 4</TableCell>
+  </TableRow>
+);
+
 const TableOutlets = props => {
-  return <CustomizedTable columns={columns} dataSource={dataSource} />;
+  return (
+    <CustomizedTable
+      columns={columns}
+      dataSource={dataSource}
+      // footer={FooterCustom}
+      pagination
+    />
+  );
 };
 
 TableOutlets.propTypes = {
