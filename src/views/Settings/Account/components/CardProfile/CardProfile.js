@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import BoxBordered from '../../../../components/BoxBordered';
+import BoxBordered from '../../../../../components/BoxBordered';
 
 import { makeStyles } from '@material-ui/styles';
 
@@ -19,15 +19,18 @@ const useStyles = makeStyles(theme => ({
 
 const CardProfile = props => {
   const classes = useStyles();
+  const { data } = props;
 
   return (
     <BoxBordered>
       <Box py={3} px={4}>
         <Grid container alignItems="center">
           <Box flexGrow={1}>
-            <Typography variant="h2">Artha Dede</Typography>
+            <Typography variant="h2" style={{ marginBottom: 8 }}>
+              {data.name}
+            </Typography>
             <Typography variant="body1" color="textSecondary">
-              x1.artha@gmail.com
+              {data.email}
             </Typography>
           </Box>
           <Avatar className={classes.profileAvatar}></Avatar>

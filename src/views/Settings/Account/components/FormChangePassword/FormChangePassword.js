@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
-import BoxBordered from '../../../../components/BoxBordered';
+import BoxBordered from '../../../../../components/BoxBordered';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -13,10 +13,15 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-flex',
     marginRight: theme.spacing(1),
     ...theme.typography.h5
+  },
+  boxHeaderSubtitle: {
+    display: 'inline-flex',
+    ...theme.typography.body1,
+    color: theme.palette.text.secondary
   }
 }));
 
-const FormProfile = props => {
+const FormChangePassword = props => {
   const classes = useStyles();
 
   return (
@@ -71,9 +76,10 @@ const FormProfile = props => {
         </Box>
       </form>
     </BoxBordered>
+    
   );
 };
 
-FormProfile.propTypes = {};
+FormChangePassword.propTypes = {};
 
-export default FormProfile;
+export default FormChangePassword;

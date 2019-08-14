@@ -23,10 +23,9 @@ app.prepare().then(() => {
     return app.render(req, res, '/list-outlet', req.query);
   });
 
-  server.get('/', (req, res) => {
-    return app.render(req, res, '/index', req.query);
+  server.get('/settings/account', (req, res) => {
+    return app.render(req, res, '/account-settings', req.query);
   });
-
 
   server.get('*', (req, res) => handle(req, res));
 

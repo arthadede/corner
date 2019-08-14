@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
-import BoxBordered from '../../../../components/BoxBordered';
+import BoxBordered from '../../../../../components/BoxBordered';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -13,16 +13,13 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-flex',
     marginRight: theme.spacing(1),
     ...theme.typography.h5
-  },
-  boxHeaderSubtitle: {
-    display: 'inline-flex',
-    ...theme.typography.body1,
-    color: theme.palette.text.secondary
   }
 }));
 
-const FormChangePassword = props => {
+const FormProfile = props => {
   const classes = useStyles();
+
+  const { data } = props;
 
   return (
     <BoxBordered>
@@ -39,6 +36,7 @@ const FormChangePassword = props => {
             <Grid item lg={6} xs={12}>
               <TextField
                 label="First name"
+                value={data.firstname}
                 variant="outlined"
                 required
                 fullWidth
@@ -47,17 +45,26 @@ const FormChangePassword = props => {
             <Grid item lg={6} xs={12}>
               <TextField
                 label="Last name"
+                value={data.lastname}
                 variant="outlined"
                 required
                 fullWidth
               />
             </Grid>
             <Grid item lg={6} xs={12}>
-              <TextField label="Email" variant="outlined" required fullWidth />
+              <TextField
+                label="Email"
+                value={data.email}
+                variant="outlined"
+                required
+                fullWidth
+                disabled
+              />
             </Grid>
             <Grid item lg={6} xs={12}>
               <TextField
                 label="Phone number"
+                value={data.phoneNumber}
                 variant="outlined"
                 required
                 fullWidth
@@ -82,6 +89,6 @@ const FormChangePassword = props => {
   );
 };
 
-FormChangePassword.propTypes = {};
+FormProfile.propTypes = {};
 
-export default FormChangePassword;
+export default FormProfile;

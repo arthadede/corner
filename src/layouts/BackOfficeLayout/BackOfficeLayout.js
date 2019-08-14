@@ -1,6 +1,7 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
@@ -22,7 +23,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import NotificationsIcon from '@material-ui/icons/NotificationsNone';
 import PowerIcon from '@material-ui/icons/PowerSettingsNew';
-import routesBO from '../../routes';
+import routes from '../../routes';
 
 const drawerWidth = 280;
 
@@ -269,7 +270,7 @@ const BackOfficeLayout = props => {
         </div>
         <Divider />
         <List>
-          {routesBO.map((route, key) => {
+          {routes.map((route, key) => {
             const RouteIcon = route.icon;
 
             if (route.children) {
@@ -290,32 +291,32 @@ const BackOfficeLayout = props => {
                   </ListItemDropdownText>
                   <ListItemDropdownChildren>
                     {items.map(item => (
-                      <ListItem
-                        button
-                        key={item.page}
-                        className={classes.menuChildren}
-                      >
-                        <div className={classes.menuIconHidden}></div>
-                        <ListItemText
-                          primary={item.name}
-                          classes={{ primary: classes.menuTextChildren }}
-                        />
-                      </ListItem>
+                      <Link key={item.page} href={item.path}>
+                        <ListItem button className={classes.menuChildren}>
+                          <div className={classes.menuIconHidden}></div>
+                          <ListItemText
+                            primary={item.name}
+                            classes={{ primary: classes.menuTextChildren }}
+                          />
+                        </ListItem>
+                      </Link>
                     ))}
                   </ListItemDropdownChildren>
                 </ListItemDropdown>
               );
             } else {
               return (
-                <ListItem button key={key} className={classes.menu}>
-                  <ListItemIcon className={classes.menuIcon}>
-                    <RouteIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={route.name}
-                    classes={{ primary: classes.menuText }}
-                  />
-                </ListItem>
+                <Link key={key} href={route.path}>
+                  <ListItem button className={classes.menu}>
+                    <ListItemIcon className={classes.menuIcon}>
+                      <RouteIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={route.name}
+                      classes={{ primary: classes.menuText }}
+                    />
+                  </ListItem>
+                </Link>
               );
             }
           })}
@@ -336,7 +337,7 @@ BackOfficeLayout.displayName = 'BackOffice-Layout';
 
 BackOfficeLayout.propTypes = {
   name: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default BackOfficeLayout;

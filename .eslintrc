@@ -10,6 +10,7 @@
     "react-hooks"
   ],
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2018
@@ -22,6 +23,8 @@
   "rules": {
     "linebreak-style": ["error", "windows"],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/display-name": "warn",
+    "no-unused-vars": "warn"
   }
 }

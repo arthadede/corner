@@ -104,16 +104,14 @@ export default [
   {
     name: 'Outlets',
     icon: StoreIcon,
-    children: [
-      { name: 'Profile', page: 'outlets-profile', path: '/outlets/profile' },
-      { name: 'Receipt', page: 'outlets-receipt', path: '/outlets/receipt' }
-    ]
+    page: 'outlets',
+    path: '/outlets'
   },
   {
     name: 'Settings',
     icon: SettingsIcon,
     children: [
-      { name: 'Account', page: 'settings-profile', path: '/settings/profile' },
+      { name: 'Account', page: 'account-settings', path: '/settings/account' },
       { name: 'Outlets', page: 'settings-outlets', path: '/settings/outlets' },
       {
         name: 'Payment Method',
