@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-flex',
     marginRight: theme.spacing(1),
     ...theme.typography.h5
-  }
+  },
+  boxHeaderSubtitle: {}
 }));
 
 const FormProfile = props => {
