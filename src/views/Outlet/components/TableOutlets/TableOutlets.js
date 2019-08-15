@@ -11,12 +11,15 @@ const columns = [
     key: 'id',
     title: 'ID',
     align: 'center',
-    width: 100
+    width: 100,
+    sorting: true,
+    sorted: 'asc'
   },
   {
     key: 'firstname',
     title: 'Firstname',
-    align: 'left'
+    align: 'left',
+    sorting: true
   },
   {
     key: 'lastname',
@@ -32,7 +35,7 @@ const columns = [
     title: 'Action',
     width: 160,
     render: () => (
-      <IconButton>
+      <IconButton size="small">
         <AddIcon />
       </IconButton>
     )
@@ -64,36 +67,6 @@ const dataSource = [
     id: 5,
     firstname: 'Artha',
     lastname: 'Suryawan'
-  },
-  {
-    id: 6,
-    firstname: 'Dede',
-    lastname: 'Testing'
-  },
-  {
-    id: 7,
-    firstname: 'Artha',
-    lastname: 'Suryawan'
-  },
-  {
-    id: 8,
-    firstname: 'Dede',
-    lastname: 'Testing'
-  },
-  {
-    id: 9,
-    firstname: 'Artha',
-    lastname: 'Suryawan'
-  },
-  {
-    id: 10,
-    firstname: 'Dede',
-    lastname: 'Testing'
-  },
-  {
-    id: 11,
-    firstname: 'Dede',
-    lastname: 'Testing'
   }
 ];
 
@@ -106,11 +79,15 @@ const FooterCustom = (
   </TableRow>
 );
 
+const handleRequestSort = () => console.log('REQUEST SORT');
+
 const TableOutlets = props => {
   return (
     <CustomizedTable
+      loading={true}
       columns={columns}
       dataSource={dataSource}
+      onRequestSort={handleRequestSort}
       // footer={FooterCustom}
       pagination
     />
