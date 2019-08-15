@@ -70,6 +70,34 @@ const dataSource = [
   }
 ];
 
+const requestData = [
+  {
+    id: 6,
+    firstname: 'Artha',
+    lastname: 'Suryawan'
+  },
+  {
+    id: 7,
+    firstname: 'Dede',
+    lastname: 'Testing'
+  },
+  {
+    id: 8,
+    firstname: 'Artha',
+    lastname: 'Suryawan'
+  },
+  {
+    id: 9,
+    firstname: 'Dede',
+    lastname: 'Testing'
+  },
+  {
+    id: 10,
+    firstname: 'Artha',
+    lastname: 'Suryawan'
+  }
+];
+
 const FooterCustom = (
   <TableRow>
     <TableCell>Field 1</TableCell>
@@ -79,15 +107,20 @@ const FooterCustom = (
   </TableRow>
 );
 
-const handleRequestSort = () => console.log('REQUEST SORT');
-
 const TableOutlets = props => {
+  const [sources, setSources] = React.useState(dataSource);
+
+  const handleRequestSort = () => setSources(requestData);
+  const handleRequestPage = page => console.log(page);
+  const handleRequestRowPerPage = rowPerPage => console.log(rowPerPage);
   return (
     <CustomizedTable
-      loading={true}
+      // count={10}
       columns={columns}
-      dataSource={dataSource}
-      onRequestSort={handleRequestSort}
+      dataSource={sources}
+      // onRequestSort={handleRequestSort}
+      // onRequestPage={handleRequestPage}
+      // onRequestRowPerPage={handleRequestRowPerPage}
       // footer={FooterCustom}
       pagination
     />

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
@@ -16,6 +18,35 @@ const useStyles = makeStyles(theme => ({
   table: {},
   tableCellSort: {
     left: 14
+  },
+  loading: {
+    position: 'relative',
+    opacity: 1
+  },
+  loadingOn: {
+    opacity: 0.5,
+    userSelect: 'none',
+    pointerEvents: 'none',
+    transition: theme.transitions.create(['opacity'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  loadingOff: {
+    opacity: 1,
+    transition: theme.transitions.create(['opacity'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  loadingIcon: {
+    position: 'absolute',
+    display: 'none',
+    top: 'calc(50% - 20px)',
+    left: 'calc(50% - 20px)'
+  },
+  loadingIconOn: {
+    display: 'initial'
   }
 }));
 
@@ -90,6 +121,10 @@ columnToCell.propTypes = {
   align: PropTypes.string
 };
 
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const CustomizedTable = props => {
   const classes = useStyles();
   const {
@@ -99,12 +134,15 @@ const CustomizedTable = props => {
     pagination,
     rowsPerPageOptions,
     onRequestSort,
+    onRequestPage,
+    onRequestRowPerPage,
     count,
     hovered
   } = props;
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('id');
+  const [loading, setLoading] = React.useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageOptions[0]);
 
@@ -124,6 +162,9 @@ const CustomizedTable = props => {
       }
     }
   }, [columns]);
+  React.useEffect(() => {
+    console.log(loading);
+  }, [loading]);
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rowsLength - page * rowsPerPage);
@@ -144,18 +185,39 @@ const CustomizedTable = props => {
     setOrderBy(property);
   }
 
-  function handleChangePage(event, newPage) {
+  async function handleChangePage(event, newPage) {
+    await Promise.all([
+      setLoading(true),
+      onRequestRowPerPage(newPage),
+      timeout(500)
+    ]);
     setPage(newPage);
+    setLoading(false);
   }
 
-  function handleChangeRowsPerPage(event) {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  async function handleChangeRowsPerPage(event) {
+    const rowPerPage = parseInt(event.target.value, 10);
+
+    await Promise.all([
+      setLoading(true),
+      onRequestPage(0),
+      onRequestRowPerPage(rowPerPage),
+      timeout(500)
+    ]);
+
+    setRowsPerPage(rowPerPage);
     setPage(0);
+    setLoading(false);
   }
 
   async function createSortHandler(event, property) {
-    await onRequestSort(event, property);
-    await handleRequestSort(event, property);
+    await Promise.all([
+      setLoading(true),
+      onRequestSort(event, property),
+      timeout(500)
+    ]);
+    handleRequestSort(event, property);
+    setLoading(false);
   }
 
   function stableSort(array, cmp) {
@@ -176,68 +238,86 @@ const CustomizedTable = props => {
 
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            {columns.map(e => {
-              const data = columnToCell(e);
-              if (data.options.sorting) {
-                return (
-                  <TableQuery {...data}>
-                    <TableSortLabel
-                      classes={{ root: classes.tableCellSort }}
-                      active={orderBy === data.key}
-                      direction={order}
-                      onClick={e => createSortHandler(e, data.key)}
-                    >
-                      {data.text}
-                    </TableSortLabel>
-                  </TableQuery>
-                );
-              } else {
-                return <TableCell key={data.key}>{data.text}</TableCell>;
-              }
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {stableSort(rows, getSorting(order, orderBy))
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((item, idx) =>
-              createdRowBodyCell(idx, item, columns, tableOptions)
-            )}
-          {emptyRows > 0 && pagination && (
-            <TableRow style={{ height: 48 * emptyRows }}>
-              <TableCell colSpan={6} />
+      <div
+        className={clsx(classes.loading, {
+          [classes.loadingOn]: loading,
+          [classes.loadingOff]: !loading
+        })}
+      >
+        <CircularProgress
+          className={clsx(classes.loadingIcon, {
+            [classes.loadingIconOn]: loading
+          })}
+        />
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              {columns.map(e => {
+                const data = columnToCell(e);
+                if (data.options.sorting) {
+                  const isAlignCenter = data.align === 'center';
+
+                  return (
+                    <TableQuery {...data}>
+                      <TableSortLabel
+                        classes={{
+                          root: classes.tableCellSort
+                        }}
+                        active={orderBy === data.key}
+                        direction={order}
+                        onClick={e => createSortHandler(e, data.key)}
+                      >
+                        {data.text}
+                      </TableSortLabel>
+                    </TableQuery>
+                  );
+                } else {
+                  return <TableCell key={data.key}>{data.text}</TableCell>;
+                }
+              })}
             </TableRow>
-          )}
-          {footer}
-        </TableBody>
-        {pagination && (
-          <TableFooter>
-            {pagination && (
-              <TableRow>
-                <TablePagination
-                  colSpan={columnsLength}
-                  count={rowsLength}
-                  page={page}
-                  rowsPerPage={rowsPerPage}
-                  rowsPerPageOptions={rowsPerPageOptions}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
+          </TableHead>
+          <TableBody>
+            {stableSort(rows, getSorting(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((item, idx) =>
+                createdRowBodyCell(idx, item, columns, tableOptions)
+              )}
+            {emptyRows > 0 && pagination && (
+              <TableRow style={{ height: 48 * emptyRows }}>
+                <TableCell colSpan={6} />
               </TableRow>
             )}
-          </TableFooter>
-        )}
-      </Table>
+            {footer}
+          </TableBody>
+          {pagination && (
+            <TableFooter>
+              {pagination && (
+                <TableRow>
+                  <TablePagination
+                    colSpan={columnsLength}
+                    count={rowsLength}
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    rowsPerPageOptions={rowsPerPageOptions}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
+                </TableRow>
+              )}
+            </TableFooter>
+          )}
+        </Table>
+      </div>
     </Paper>
   );
 };
 
 CustomizedTable.defaultProps = {
   rowsPerPageOptions: [5, 10, 25],
-  onRequestSort: () => {}
+  onRequestSort: () => {},
+  onRequestPage: () => {},
+  onRequestRowPerPage: () => {}
 };
 
 CustomizedTable.propTypes = {
@@ -247,8 +327,11 @@ CustomizedTable.propTypes = {
   count: PropTypes.number,
   pagination: PropTypes.bool,
   onRequestSort: PropTypes.func,
+  onRequestPage: PropTypes.func,
+  onRequestRowPerPage: PropTypes.func,
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
-  hovered: PropTypes.bool
+  hovered: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 export default CustomizedTable;
