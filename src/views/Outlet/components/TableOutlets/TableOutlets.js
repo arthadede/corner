@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import makeStyles from '@material-ui/styles/makeStyles';
 import CustomizedTable from '../../../../components/CustomizedTable';
+import CustomizedIconButton from '../../../../components/CustomizedIconButton';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/AddCircleOutline';
+import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/EditOutlined';
+import DeleteIcon from '@material-ui/icons/DeleteOutlined';
+import LabelText from '../../../../components/LabelText';
+
+const useStyles = makeStyles({});
 
 const columns = [
   {
@@ -17,7 +23,7 @@ const columns = [
   },
   {
     key: 'firstname',
-    title: 'Firstname',
+    title: 'Item Type',
     align: 'left',
     sorting: true
   },
@@ -28,16 +34,23 @@ const columns = [
   {
     key: 'fullname',
     title: 'Fullname',
-    render: text => [text.firstname, text.lastname].join(' ')
+    render: text => <LabelText color="success">DISABLED</LabelText>
   },
   {
     key: 'action',
-    title: 'Action',
+    title: '',
+    align: 'center',
     width: 160,
+    // eslint-disable-next-line react/display-name
     render: () => (
-      <IconButton size="small">
-        <AddIcon />
-      </IconButton>
+      <div>
+        <CustomizedIconButton size="small" color="warning">
+          <EditIcon />
+        </CustomizedIconButton>
+        <CustomizedIconButton size="small" color="danger">
+          <DeleteIcon />
+        </CustomizedIconButton>
+      </div>
     )
   }
 ];

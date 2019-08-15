@@ -62,10 +62,10 @@ export default {
     lineHeight: '21px'
   },
   body2: {
-    color: palette.text.secondary,
+    color: palette.text.primary,
     fontSize: '12px',
     letterSpacing: '-0.04px',
-    lineHeight: '18px'
+    lineHeight: '14px'
   },
   button: {
     color: palette.text.primary,
@@ -74,8 +74,8 @@ export default {
   caption: {
     color: palette.text.secondary,
     fontSize: '11px',
-    letterSpacing: '0.33px',
-    lineHeight: '13px'
+    letterSpacing: '-0.05 px',
+    lineHeight: '12px'
   },
   overline: {
     color: palette.text.secondary,

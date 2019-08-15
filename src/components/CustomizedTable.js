@@ -14,8 +14,29 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    boxShadow: 'none',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: theme.palette.grey[300]
+  },
   table: {},
+  tableHead: {
+    backgroundColor: '#fafafa'
+  },
+  tableHeadCell: {
+    borderBottom: `1px solid ${theme.palette.grey[300]}`,
+    padding: '16px 24px',
+    ...theme.typography.body2,
+    lineHeight: '16px',
+    fontWeight: 500,
+    color: theme.palette.text.secondary
+  },
+  tableCell: {
+    borderBottom: `1px solid ${theme.palette.grey[300]}`,
+    padding: '9px 24px',
+    ...theme.typography.body2
+  },
   tableCellSort: {
     left: 14
   },
@@ -72,9 +93,17 @@ const sourceToCell = ({ key, text, align, style }) => {
   return cellDto;
 };
 
-const TableQuery = ({ key, text, children, align, style, options = {} }) => {
+const TableQuery = ({
+  key,
+  text,
+  children,
+  align,
+  style,
+  className,
+  options = {}
+}) => {
   return (
-    <TableCell key={key} align={align} style={style}>
+    <TableCell key={key} align={align} style={style} className={className}>
       {children || text}
     </TableCell>
   );
@@ -86,29 +115,8 @@ TableQuery.propTypes = {
   children: PropTypes.PropTypes.node,
   align: PropTypes.string,
   style: PropTypes.object,
+  className: PropTypes.object,
   options: PropTypes.object
-};
-
-const createdRowBodyCell = (idx, data, columns, options) => {
-  const { hover } = options;
-  return (
-    <TableRow key={data.key || data.id || idx}>
-      {columns.map(column => {
-        const { key, render } = column;
-
-        const columnCell = columnToCell(column);
-        const sourceCell = sourceToCell({ ...columnCell });
-
-        if (render) {
-          sourceCell['text'] = render(data);
-        } else {
-          sourceCell['text'] = data[key];
-        }
-
-        return <TableQuery key={key} {...sourceCell} />;
-      })}
-    </TableRow>
-  );
 };
 
 columnToCell.defaultProps = {
@@ -236,6 +244,34 @@ const CustomizedTable = props => {
       : (a, b) => -desc(a, b, orderBy);
   }
 
+  const createdRowBodyCell = (idx, data, columns, options) => {
+    const { hover } = options;
+    return (
+      <TableRow key={data.key || data.id || idx}>
+        {columns.map(column => {
+          const { key, render } = column;
+
+          const columnCell = columnToCell(column);
+          const sourceCell = sourceToCell({ ...columnCell });
+
+          if (render) {
+            sourceCell['text'] = render(data);
+          } else {
+            sourceCell['text'] = data[key];
+          }
+
+          return (
+            <TableQuery
+              key={key}
+              {...sourceCell}
+              className={classes.tableCell}
+            />
+          );
+        })}
+      </TableRow>
+    );
+  };
+
   return (
     <Paper className={classes.root}>
       <div
@@ -250,7 +286,7 @@ const CustomizedTable = props => {
           })}
         />
         <Table className={classes.table}>
-          <TableHead>
+          <TableHead className={classes.tableHead}>
             <TableRow>
               {columns.map(e => {
                 const data = columnToCell(e);
@@ -258,11 +294,11 @@ const CustomizedTable = props => {
                   const isAlignCenter = data.align === 'center';
 
                   return (
-                    <TableQuery {...data}>
+                    <TableQuery {...data} className={classes.tableHeadCell}>
                       <TableSortLabel
-                        classes={{
-                          root: classes.tableCellSort
-                        }}
+                        className={clsx({
+                          [classes.tableCellSort]: isAlignCenter
+                        })}
                         active={orderBy === data.key}
                         direction={order}
                         onClick={e => createSortHandler(e, data.key)}
@@ -272,7 +308,11 @@ const CustomizedTable = props => {
                     </TableQuery>
                   );
                 } else {
-                  return <TableCell key={data.key}>{data.text}</TableCell>;
+                  return (
+                    <TableCell key={data.key} className={classes.tableHeadCell}>
+                      {data.text}
+                    </TableCell>
+                  );
                 }
               })}
             </TableRow>
@@ -284,7 +324,7 @@ const CustomizedTable = props => {
                 createdRowBodyCell(idx, item, columns, tableOptions)
               )}
             {emptyRows > 0 && pagination && (
-              <TableRow style={{ height: 48 * emptyRows }}>
+              <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
               </TableRow>
             )}

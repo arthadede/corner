@@ -10,9 +10,20 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'inline-flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1)
+    padding: '8px 16px 8px 8px',
+    minWidth: 300
+  },
+  wrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  icon: {
+    marginRight: theme.spacing(1)
+  },
+  input: {
+    flexGrow: 1,
+    ...theme.typography.body1
   }
 }));
 
@@ -22,10 +33,12 @@ const SearchInput = props => {
 
   return (
     <Paper className={clsx(classes.root, className)}>
-      <IconButton disabled>
-        <SearchIcon />
-      </IconButton>
-      <InputBase {...rest} />
+      <div className={classes.wrapper}>
+        <IconButton className={classes.icon} size="small" disabled>
+          <SearchIcon fontSize="small" />
+        </IconButton>
+        <InputBase className={classes.input} {...rest} />
+      </div>
     </Paper>
   );
 };
