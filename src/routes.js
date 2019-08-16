@@ -112,7 +112,6 @@ export default [
     icon: SettingsIcon,
     children: [
       { name: 'Account', page: 'account-settings', path: '/settings/account' },
-      { name: 'Outlets', page: 'settings-outlets', path: '/settings/outlets' },
       {
         name: 'Payment Method',
         page: 'settings-payment',
@@ -120,12 +119,12 @@ export default [
       },
       {
         name: 'Checkout',
-        page: 'settings-checkout',
+        page: 'checkout-settings',
         path: '/settings/checkout'
       },
       {
         name: 'Email Notification',
-        page: 'settings-notification',
+        page: 'notification-settings',
         path: '/settings/notification'
       }
     ]

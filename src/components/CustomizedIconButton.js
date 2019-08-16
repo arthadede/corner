@@ -9,13 +9,19 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 4,
     marginRight: 4
   },
+  colorPrimary: {
+    color: 'rgba(7, 103, 219, 1)',
+    '&:hover': {
+      backgroundColor: 'rgba(7, 103, 219, 0.08)'
+    }
+  },
   colorSuccess: {
     color: 'rgba(92, 179, 96, 1)',
     '&:hover': {
       backgroundColor: 'rgba(92, 179, 96, 0.08)'
     }
   },
-  colorWarining: {
+  colorWarning: {
     color: 'rgba(254, 161, 33, 1)',
     '&:hover': {
       backgroundColor: 'rgba(254, 161, 33, 0.08)'
@@ -37,17 +43,19 @@ const useStyles = makeStyles(theme => ({
 
 const CustomizedIconButton = props => {
   const classes = useStyles();
-  const { children, size, color } = props;
+  const { children, size, color, ...rest } = props;
 
   return (
     <IconButton
       size={size}
       className={clsx(classes.root, {
+        [classes.colorPrimary]: color === 'primary',
         [classes.colorSuccess]: color === 'success',
-        [classes.colorWarining]: color === 'warning',
+        [classes.colorWarning]: color === 'warning',
         [classes.colorDanger]: color === 'danger',
         [classes.colorDefault]: color === 'default'
       })}
+      {...rest}
     >
       {children}
     </IconButton>

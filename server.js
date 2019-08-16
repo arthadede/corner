@@ -27,6 +27,14 @@ app.prepare().then(() => {
     return app.render(req, res, '/account-settings', req.query);
   });
 
+  server.get('/settings/checkout', (req, res) => {
+    return app.render(req, res, '/checkout-settings', req.query);
+  });
+
+  server.get('/settings/notification', (req, res) => {
+    return app.render(req, res, '/notification-settings', req.query);
+  });
+
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(port, err => {

@@ -68,5 +68,10 @@ export default {
     paper: white
   },
   icon: colors.blueGrey[600],
-  divider: colors.grey[200]
+  divider: colors.grey[200],
+  action: {
+    success: 'rgba(92, 179, 96, 1)',
+    warning: 'rgba(254, 161, 33, 1)',
+    danger: 'rgba(255, 0, 0, 1)'
+  }
 };

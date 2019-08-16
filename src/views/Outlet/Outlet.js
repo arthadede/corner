@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { TableActions, TableOutlets } from './components';
 
