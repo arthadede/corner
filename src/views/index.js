@@ -5,4 +5,5 @@ export { default as OutletList } from './OutletList';
 export { default as Outlet } from './Outlet';
 
 import * as Settings from './Settings';
-export { Settings };
+import * as Employee from './Employee';
+export { Settings, Employee };
