@@ -118,6 +118,11 @@ export default [
         path: '/settings/payment'
       },
       {
+        name: 'Receipt',
+        page: 'receipt-settings',
+        path: '/settings/receipt'
+      },
+      {
         name: 'Checkout',
         page: 'checkout-settings',
         path: '/settings/checkout'

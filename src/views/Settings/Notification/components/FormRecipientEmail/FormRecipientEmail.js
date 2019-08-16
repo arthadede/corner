@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme => ({
     ...theme.typography.body1
   },
   formAddedRecipientBtn: {},
+  formAddedRecipientBtnCancel: {
+    backgroundColor: '#FF0000'
+  },
   buttonProgressWrapper: {
     position: 'relative',
     '&:not(last-child)': {
@@ -186,7 +189,7 @@ const FormRecipientEmail = props => {
               color="primary"
               variant="contained"
               onClick={handleClose}
-              className={classes.formAddedRecipientBtn}
+              className={classes.formAddedRecipientBtnCancel}
             >
               CANCEL
             </Button>

@@ -27,6 +27,10 @@ app.prepare().then(() => {
     return app.render(req, res, '/account-settings', req.query);
   });
 
+  server.get('/settings/receipt', (req, res) => {
+    return app.render(req, res, '/receipt-settings', req.query);
+  });
+
   server.get('/settings/checkout', (req, res) => {
     return app.render(req, res, '/checkout-settings', req.query);
   });
