@@ -252,7 +252,7 @@ const CustomizedTable = props => {
           const { key, render } = column;
 
           const columnCell = columnToCell(column);
-          const sourceCell = sourceToCell({ ...columnCell });
+          const sourceCell = sourceToCell(columnCell);
 
           if (render) {
             sourceCell['text'] = render(data);
@@ -294,7 +294,11 @@ const CustomizedTable = props => {
                   const isAlignCenter = data.align === 'center';
 
                   return (
-                    <TableQuery {...data} className={classes.tableHeadCell}>
+                    <TableQuery
+                      {...data}
+                      key={data.key}
+                      className={classes.tableHeadCell}
+                    >
                       <TableSortLabel
                         className={clsx({
                           [classes.tableCellSort]: isAlignCenter
@@ -309,7 +313,11 @@ const CustomizedTable = props => {
                   );
                 } else {
                   return (
-                    <TableCell key={data.key} className={classes.tableHeadCell}>
+                    <TableCell
+                      key={data.key}
+                      align={data.align}
+                      className={classes.tableHeadCell}
+                    >
                       {data.text}
                     </TableCell>
                   );

@@ -26,17 +26,21 @@ const useStyles = makeStyles({
   },
   reversed: {
     flexDirection: 'row-reverse'
+  },
+  noPadding: {
+    padding: '0 !important'
   }
 });
 
 const FormControlSwitch = props => {
   const classes = useStyles();
-  const { className, bordered, reversed, ...rest } = props;
+  const { className, bordered, reversed, noPadding, ...rest } = props;
   return (
     <FormControlLabel
       className={clsx(className, {
         [classes.bordered]: bordered,
-        [classes.reversed]: reversed
+        [classes.reversed]: reversed,
+        [classes.noPadding]: noPadding
       })}
       classes={{
         root: classes.root,
@@ -54,7 +58,8 @@ FormControlSwitch.defaultProps = {
 FormControlSwitch.propTypes = {
   className: PropTypes.string,
   bordered: PropTypes.bool,
-  reversed: PropTypes.bool
+  reversed: PropTypes.bool,
+  noPadding: PropTypes.bool
 };
 
 export default FormControlSwitch;
