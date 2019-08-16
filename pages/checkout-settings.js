@@ -3,7 +3,7 @@ import { Settings } from '../src/views';
 
 const CheckoutSettings = () => {};
 
-CheckoutSettings.pageTitle = 'Notification Settings';
+CheckoutSettings.pageTitle = 'Checkout Settings';
 CheckoutSettings.Layout = BackOfficeLayout;
 CheckoutSettings.Content = Settings.Checkout;
 CheckoutSettings.getInitialProps = async () => {

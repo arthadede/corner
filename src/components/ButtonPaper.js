@@ -9,6 +9,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3),
     color: theme.palette.text.secondary,
+    backgroundColor: theme.palette.white,
+    transition: theme.transitions.create(['color', 'background'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    }),
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.white,

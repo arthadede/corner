@@ -17,13 +17,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FormNotification = props => {
+const FormTaxAndGratuity = props => {
   const classes = useStyles();
 
   return (
     <BoxBordered>
       <Box py={3} px={4}>
-        <span className={classes.headerText}>Email Notification Settings</span>
+        <span className={classes.headerText}>Tax and Gratuity Settings</span>
       </Box>
       <Divider />
       <form action="">
@@ -39,7 +39,7 @@ const FormNotification = props => {
                     color="primary"
                   />
                 }
-                label="Daily Sales Summary"
+                label="Enable Tax"
                 bordered={false}
                 reversed
               />
@@ -54,7 +54,7 @@ const FormNotification = props => {
                     color="primary"
                   />
                 }
-                label="Inventory Alerts"
+                label="Enable Gratuity"
                 bordered={false}
                 reversed
               />
@@ -78,6 +78,6 @@ const FormNotification = props => {
   );
 };
 
-FormNotification.propTypes = {};
+FormTaxAndGratuity.propTypes = {};
 
-export default FormNotification;
+export default FormTaxAndGratuity;
