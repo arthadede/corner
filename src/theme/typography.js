@@ -57,13 +57,13 @@ export default {
   },
   body1: {
     color: palette.text.primary,
-    fontSize: '14px',
+    fontSize: '16px',
     letterSpacing: '-0.05px',
     lineHeight: '21px'
   },
   body2: {
     color: palette.text.primary,
-    fontSize: '12px',
+    fontSize: '14px',
     letterSpacing: '-0.04px',
     lineHeight: '14px'
   },

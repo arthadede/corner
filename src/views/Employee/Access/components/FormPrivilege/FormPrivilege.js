@@ -16,6 +16,10 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-flex',
     marginRight: theme.spacing(1),
     ...theme.typography.h5
+  },
+  body: {
+    maxHeight: 600,
+    overflowY: 'auto'
   }
 }));
 
@@ -29,7 +33,7 @@ const FormPrivilege = props => {
       </Box>
       <Divider />
       <form action="">
-        <Box py={3} px={4}>
+        <Box py={3} px={4} className={classes.body}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
               <TextField

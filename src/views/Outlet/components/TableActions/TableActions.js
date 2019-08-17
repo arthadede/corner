@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import SearchInput from '../../../../components/SearchInput';
@@ -7,19 +8,6 @@ import { ModalCreate } from './components';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      '&>*:not(:last-child)': {
-        marginBottom: 24
-      }
-    }
-  },
-  search: {
-    flexGrow: 1
-  },
   modal: {
     display: 'flex',
     flexDirection: 'column',
@@ -35,19 +23,19 @@ const TableActions = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <div className={classes.root}>
-      <div className={classes.search}>
+    <Grid container spacing={3} alignItems="center">
+      <Grid item md={4} xs={12}>
         <SearchInput placeholder="Search" />
-      </div>
-      <div>
+      </Grid>
+      <Grid item md={8} xs={12} align="right">
         <Button color="primary" variant="contained" onClick={handleOpen}>
           CREATE OUTLET
         </Button>
         <Modal open={open} onClose={handleClose} className={classes.modal}>
           <ModalCreate />
         </Modal>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

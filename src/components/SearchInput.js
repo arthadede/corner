@@ -9,9 +9,8 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'inline-flex',
-    padding: '8px 16px 8px 8px',
-    minWidth: 300
+    display: 'block',
+    padding: '8px 16px 8px 8px'
   },
   wrapper: {
     width: '100%',

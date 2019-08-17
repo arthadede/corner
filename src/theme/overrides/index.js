@@ -11,5 +11,5 @@ export default {
   MuiOutlinedInput,
   MuiInputLabel,
   MuiPaper,
-  MuiSelect
+  MuiSelect,
 };

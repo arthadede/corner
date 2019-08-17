@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
     boxShadow: 'none',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: theme.palette.grey[300]
+    borderColor: theme.palette.grey[300],
+    minHeight: 200
   },
   table: {},
   tableHead: {
@@ -26,16 +27,17 @@ const useStyles = makeStyles(theme => ({
   },
   tableHeadCell: {
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
-    padding: '16px 24px',
     ...theme.typography.body2,
-    lineHeight: '16px',
+    lineHeight: '50px',
+    padding: '0 24px',
     fontWeight: 500,
     color: theme.palette.text.secondary
   },
   tableCell: {
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
-    padding: '9px 24px',
-    ...theme.typography.body2
+    ...theme.typography.body2,
+    lineHeight: '48px',
+    padding: '0 24px'
   },
   tableCellSort: {
     left: 14
@@ -245,9 +247,9 @@ const CustomizedTable = props => {
   }
 
   const createdRowBodyCell = (idx, data, columns, options) => {
-    const { hover } = options;
+    const { selected } = options;
     return (
-      <TableRow key={data.key || data.id || idx}>
+      <TableRow key={data.key || data.id || idx} selected={selected} hover>
         {columns.map(column => {
           const { key, render } = column;
 
@@ -285,7 +287,7 @@ const CustomizedTable = props => {
             [classes.loadingIconOn]: loading
           })}
         />
-        <Table className={classes.table}>
+        <Table hover className={classes.table}>
           <TableHead className={classes.tableHead}>
             <TableRow>
               {columns.map(e => {
@@ -313,13 +315,11 @@ const CustomizedTable = props => {
                   );
                 } else {
                   return (
-                    <TableCell
+                    <TableQuery
+                      {...data}
                       key={data.key}
-                      align={data.align}
                       className={classes.tableHeadCell}
-                    >
-                      {data.text}
-                    </TableCell>
+                    />
                   );
                 }
               })}
@@ -362,6 +362,8 @@ const CustomizedTable = props => {
 };
 
 CustomizedTable.defaultProps = {
+  columns: [],
+  dataSource: [],
   rowsPerPageOptions: [5, 10, 25],
   onRequestSort: () => {},
   onRequestPage: () => {},
