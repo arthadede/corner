@@ -80,10 +80,10 @@ export default [
     ]
   },
   {
-    name: 'Costumers',
+    name: 'Customers',
     icon: SupervisorIcon,
-    page: 'costumers',
-    path: '/costumers'
+    page: 'customers',
+    path: '/customers'
   },
   {
     name: 'Employees',
