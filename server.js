@@ -27,6 +27,10 @@ app.prepare().then(() => {
     return app.render(req, res, '/customers', req.query);
   });
 
+  server.get('/customers/:id', (req, res) => {
+    return app.render(req, res, '/customers-detail', req.query);
+  });
+
   server.get('/employee/account', (req, res) => {
     return app.render(req, res, '/employee-account', req.query);
   });

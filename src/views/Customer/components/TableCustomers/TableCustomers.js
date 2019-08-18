@@ -110,7 +110,7 @@ const TableCustomers = props => {
     }
   ];
 
-  return <Table columns={columns} dataSource={dataSource} />;
+  return <Table columns={columns} dataSource={dataSource} pagination />;
 };
 
 TableCustomers.propTypes = {};

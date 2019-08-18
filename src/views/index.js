@@ -4,6 +4,7 @@ export { default as AppList } from './AppList';
 export { default as OutletList } from './OutletList';
 export { default as Outlet } from './Outlet';
 export { default as Customer } from './Customer';
+export { default as CustomerDetail } from './CustomerDetail';
 
 import * as Settings from './Settings';
 import * as Employee from './Employee';

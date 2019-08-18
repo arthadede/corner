@@ -8,7 +8,7 @@ const BoxBordered = withStyles({
     backgroundColor: palette.white,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: palette.grey[200],
+    borderColor: palette.grey[300],
     borderRadius: 4
   }
 })(Box);
