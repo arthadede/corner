@@ -84,7 +84,12 @@ const DetailTransaction = props => {
         </span>
       </Box>
       <Divider />
-      <Table columns={columns} dataSource={dataSource} pagination />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        rowsPerPageOptions={[5, 10]}
+        pagination
+      />
     </BoxBordered>
   );
 };

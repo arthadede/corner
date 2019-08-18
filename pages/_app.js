@@ -49,7 +49,7 @@ class MyApp extends App {
     return (
       <Container>
         <Head>
-          <title>{`Corner Apps - ${Component.pageTitle}`}</title>
+          <title>{`${Component.pageTitle} - Corner Apps`}</title>
         </Head>
         <NoSsr>
           <ThemeProvider theme={theme}>
