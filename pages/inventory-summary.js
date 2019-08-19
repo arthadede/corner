@@ -4,7 +4,7 @@ import { BackOfficeLayout } from '../src/layouts';
 const InventorySummary = () => {};
 
 InventorySummary.displayName = 'InventorySummary';
-InventorySummary.pageTitle = 'Inventory Summary';
+InventorySummary.pageTitle = 'Summary';
 InventorySummary.Layout = BackOfficeLayout;
 InventorySummary.Content = Inventory.Summary;
 

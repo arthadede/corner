@@ -15,7 +15,7 @@ export default withStyles(theme => ({
       color: theme.palette.common.white,
       '& + $track': {
         opacity: 1,
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main
       }
     }
   },

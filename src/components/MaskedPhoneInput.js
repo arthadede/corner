@@ -32,12 +32,17 @@ const MaskedPhoneInput = props => {
       ]}
       showMask
       guide={false}
-      placeholder="8222 - 3333 - 444"
       placeholderChar={'\u2000'}
     />
   );
 };
 
-MaskedPhoneInput.propTypes = {};
+MaskedPhoneInput.defaultProps = {
+  inputRef: () => {}
+};
+
+MaskedPhoneInput.propTypes = {
+  inputRef: PropTypes.func
+};
 
 export default MaskedPhoneInput;

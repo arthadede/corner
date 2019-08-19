@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { Actions, TableCustomers } from './components';
 
@@ -13,11 +13,9 @@ const Customer = props => {
         <TableCustomers />
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-Customer.propTypes = {
+Customer.propTypes = {};
 
-}
-
-export default Customer
+export default Customer;

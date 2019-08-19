@@ -4,7 +4,7 @@ import { BackOfficeLayout } from '../src/layouts';
 const InventorySuppliers = () => {};
 
 InventorySuppliers.displayName = 'InventorySuppliers';
-InventorySuppliers.pageTitle = 'Inventory Suppliers';
+InventorySuppliers.pageTitle = 'Suppliers';
 InventorySuppliers.Layout = BackOfficeLayout;
 InventorySuppliers.Content = Inventory.Suppliers;
 

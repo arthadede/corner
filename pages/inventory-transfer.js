@@ -4,7 +4,7 @@ import { BackOfficeLayout } from '../src/layouts';
 const InventoryTransfer = () => {};
 
 InventoryTransfer.displayName = 'InventoryTransfer';
-InventoryTransfer.pageTitle = 'Inventory Transfer';
+InventoryTransfer.pageTitle = 'Transfer';
 InventoryTransfer.Layout = BackOfficeLayout;
 InventoryTransfer.Content = Inventory.Transfer;
 

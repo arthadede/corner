@@ -39,6 +39,10 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '48px',
     padding: '0 24px'
   },
+  tableCellSorted: {
+    background: '#0767DB',
+    color: '#fff'
+  },
   tableCellSort: {
     left: 14
   },
@@ -70,6 +74,9 @@ const useStyles = makeStyles(theme => ({
   },
   loadingIconOn: {
     display: 'initial'
+  },
+  pointer: {
+    cursor: 'pointer'
   }
 }));
 
@@ -142,10 +149,13 @@ const CustomizedTable = props => {
     dataSource,
     footer,
     pagination,
+    rowsOnClick,
     rowsPerPageOptions,
     onRequestSort,
     onRequestPage,
     onRequestRowPerPage,
+    rootOrder,
+    optionSortedCell,
     count,
     hovered
   } = props;
@@ -172,9 +182,6 @@ const CustomizedTable = props => {
       }
     }
   }, [columns]);
-  React.useEffect(() => {
-    console.log(loading);
-  }, [loading]);
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rowsLength - page * rowsPerPage);
@@ -249,7 +256,15 @@ const CustomizedTable = props => {
   const createdRowBodyCell = (idx, data, columns, options) => {
     const { selected } = options;
     return (
-      <TableRow key={data.key || data.id || idx} selected={selected} hover>
+      <TableRow
+        hover
+        selected={selected}
+        key={data.key || data.id || idx}
+        className={clsx({
+          [classes.pointer]: rowsOnClick
+        })}
+        {...(rowsOnClick ? { onClick: e => rowsOnClick(e, data) } : null)}
+      >
         {columns.map(column => {
           const { key, render } = column;
 
@@ -273,6 +288,114 @@ const CustomizedTable = props => {
       </TableRow>
     );
   };
+
+  function GenerateBody(array) {
+    return array
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      .map((item, idx) => createdRowBodyCell(idx, item, columns, tableOptions));
+  }
+
+  const splitDate = data => ({
+    day: new Date(data).getDate(),
+    month: new Date(data).getMonth(),
+    year: new Date(data).getFullYear()
+  });
+
+  function splitByOrder(array, sliceOption) {
+    const { key, type } = sliceOption;
+    let _;
+
+    if (type.slice(0, 4) === 'date') {
+      const specificDate = type.slice(5);
+
+      if (specificDate === 'day') {
+        _ = array.reduce((result, item) => {
+          const currentDate = item[key];
+          const { day, month, year } = splitDate(currentDate);
+          const newKey = [day, month + 1, year].join('/');
+
+          if (result[newKey]) result[newKey].push(item);
+          else {
+            result[newKey] = [];
+            result[newKey].push(item);
+          }
+
+          return result;
+        }, {});
+      } else if (specificDate === 'month') {
+        _ = array.reduce((result, item) => {
+          const currentDate = item[key];
+          const { month, year } = splitDate(currentDate);
+          const newKey = [month + 1, year].join('/');
+
+          if (result[newKey]) result[newKey].push(item);
+          else {
+            result[newKey] = [];
+            result[newKey].push(item);
+          }
+
+          return result;
+        }, {});
+      } else if (specificDate === 'year') {
+        _ = array.reduce((result, item) => {
+          const currentDate = item[key];
+          const { year } = splitDate(currentDate);
+          const newKey = year;
+
+          if (result[newKey]) result[newKey].push(item);
+          else {
+            result[newKey] = [];
+            result[newKey].push(item);
+          }
+
+          return result;
+        }, {});
+      }
+    } else {
+      _ = array.reduce((result, item) => {
+        const newKey = item[key];
+
+        if (result[newKey]) result[newKey].push(item);
+        else {
+          result[newKey] = [];
+          result[newKey].push(item);
+        }
+
+        return result;
+      }, {});
+    }
+
+    return _;
+  }
+
+  function GenerateBodyWithRootOrder(array) {
+    let res,
+      node = [];
+
+    res = stableSort(array, getSorting(order, orderBy));
+    res = splitByOrder(res, rootOrder);
+
+    for (const index in res) {
+      let nodeHead, nodeBody;
+
+      nodeHead = (
+        <TableRow>
+          <TableCell
+            colspan={columns.length}
+            className={classes.tableCellSorted}
+          >
+            {optionSortedCell(index)}
+          </TableCell>
+        </TableRow>
+      );
+
+      nodeBody = GenerateBody(res[index]);
+
+      node.push(nodeHead, nodeBody);
+    }
+
+    return node;
+  }
 
   return (
     <Paper className={classes.root}>
@@ -326,11 +449,7 @@ const CustomizedTable = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {stableSort(rows, getSorting(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((item, idx) =>
-                createdRowBodyCell(idx, item, columns, tableOptions)
-              )}
+            {!rootOrder ? GenerateBody(rows) : GenerateBodyWithRootOrder(rows)}
             {emptyRows > 0 && pagination && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -367,7 +486,8 @@ CustomizedTable.defaultProps = {
   rowsPerPageOptions: [5, 10, 25],
   onRequestSort: () => {},
   onRequestPage: () => {},
-  onRequestRowPerPage: () => {}
+  onRequestRowPerPage: () => {},
+  optionSortedCell: text => text
 };
 
 CustomizedTable.propTypes = {
@@ -379,9 +499,12 @@ CustomizedTable.propTypes = {
   onRequestSort: PropTypes.func,
   onRequestPage: PropTypes.func,
   onRequestRowPerPage: PropTypes.func,
+  rowsOnClick: PropTypes.func,
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   hovered: PropTypes.bool,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  rootOrder: PropTypes.object,
+  optionSortedCell: PropTypes.func
 };
 
 export default CustomizedTable;

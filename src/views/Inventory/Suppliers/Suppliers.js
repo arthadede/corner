@@ -1,16 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
+import { Header, Body } from './components';
 
 const Suppliers = props => {
   return (
-    <div>
-      Suppliers
-    </div>
-  )
-}
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Header />
+      </Grid>
+      <Grid item xs={12}>
+        <Body />
+      </Grid>
+    </Grid>
+  );
+};
 
-Suppliers.propTypes = {
+Suppliers.propTypes = {};
 
-}
-
-export default Suppliers
+export default Suppliers;

@@ -76,7 +76,6 @@ const FormChangePassword = props => {
         </Box>
       </form>
     </BoxBordered>
-    
   );
 };
 

@@ -4,6 +4,7 @@ import MuiButton from './MuiButton';
 import MuiPaper from './MuiPaper';
 import MuiInputLabel from './MuiInputLabel';
 import MuiSelect from './MuiSelect';
+import MuiTableCell from './MuiTableCell';
 
 export default {
   MuiAppBar,
@@ -12,4 +13,5 @@ export default {
   MuiInputLabel,
   MuiPaper,
   MuiSelect,
+  MuiTableCell
 };

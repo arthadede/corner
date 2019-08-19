@@ -20,8 +20,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
 const dataSource = [
   {
     name: 'Artha Administrator',
@@ -44,7 +42,6 @@ const TableEmployee = props => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
   const columns = [
     {
