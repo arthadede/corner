@@ -23,6 +23,26 @@ app.prepare().then(() => {
     return app.render(req, res, '/list-outlet', req.query);
   });
 
+  server.get('/inventory/summary', (req, res) => {
+    return app.render(req, res, '/inventory-summary', req.query);
+  });
+
+  server.get('/inventory/suppliers', (req, res) => {
+    return app.render(req, res, '/inventory-suppliers', req.query);
+  });
+
+  server.get('/inventory/purchase-order', (req, res) => {
+    return app.render(req, res, '/inventory-purchase-order', req.query);
+  });
+
+  server.get('/inventory/transfer', (req, res) => {
+    return app.render(req, res, '/inventory-transfer', req.query);
+  });
+
+  server.get('/inventory/adjustment', (req, res) => {
+    return app.render(req, res, '/inventory-adjustment', req.query);
+  });
+
   server.get('/customers', (req, res) => {
     return app.render(req, res, '/customers', req.query);
   });

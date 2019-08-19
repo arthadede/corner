@@ -8,4 +8,5 @@ export { default as CustomerDetail } from './CustomerDetail';
 
 import * as Settings from './Settings';
 import * as Employee from './Employee';
-export { Settings, Employee };
+import * as Inventory from './Inventory';
+export { Settings, Employee, Inventory };
