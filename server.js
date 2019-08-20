@@ -23,6 +23,30 @@ app.prepare().then(() => {
     return app.render(req, res, '/list-outlet', req.query);
   });
 
+  server.get('/library/items', (req, res) => {
+    return app.render(req, res, '/library-items', req.query);
+  });
+
+  server.get('/library/categories', (req, res) => {
+    return app.render(req, res, '/library-categories', req.query);
+  });
+
+  server.get('/library/discounts', (req, res) => {
+    return app.render(req, res, '/library-discounts', req.query);
+  });
+
+  server.get('/library/taxes', (req, res) => {
+    return app.render(req, res, '/library-taxes', req.query);
+  });
+
+  server.get('/library/gratuity', (req, res) => {
+    return app.render(req, res, '/library-gratuity', req.query);
+  });
+
+  server.get('/library/sales-type', (req, res) => {
+    return app.render(req, res, '/library-sales-type', req.query);
+  });
+
   server.get('/inventory/summary', (req, res) => {
     return app.render(req, res, '/inventory-summary', req.query);
   });

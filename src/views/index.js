@@ -9,4 +9,5 @@ export { default as CustomerDetail } from './CustomerDetail';
 import * as Settings from './Settings';
 import * as Employee from './Employee';
 import * as Inventory from './Inventory';
-export { Settings, Employee, Inventory };
+import * as Library from './Library';
+export { Settings, Employee, Inventory, Library };

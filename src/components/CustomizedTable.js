@@ -449,7 +449,9 @@ const CustomizedTable = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!rootOrder ? GenerateBody(rows) : GenerateBodyWithRootOrder(rows)}
+            {!rootOrder
+              ? GenerateBody(stableSort(rows, getSorting(order, orderBy)))
+              : GenerateBodyWithRootOrder(rows)}
             {emptyRows > 0 && pagination && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />

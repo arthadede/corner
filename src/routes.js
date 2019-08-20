@@ -33,7 +33,6 @@ export default [
         page: 'library-categories',
         path: '/library/categories'
       },
-      { name: 'Promo', page: 'library-promo', path: '/library/promo' },
       {
         name: 'Discounts',
         page: 'library-discounts',
