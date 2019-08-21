@@ -45,7 +45,6 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps, routeProps } = this.props;
-
     return (
       <Container>
         <Head>

@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { SalesSummary, ItemSummary } from './components';
+import { Header, Body } from './components';
 
-const Dashboard = props => {
+const Transactions = props => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <SalesSummary />
+        <Header />
       </Grid>
       <Grid item xs={12}>
-        <ItemSummary />
+        <Body />
       </Grid>
     </Grid>
   );
 };
 
-Dashboard.propTypes = {};
+Transactions.propTypes = {};
 
-export default Dashboard;
+export default Transactions;

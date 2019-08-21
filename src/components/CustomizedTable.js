@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
     borderColor: theme.palette.grey[300],
     minHeight: 200
   },
+  tableWrapper: {
+    overflow: 'auto'
+  },
   table: {},
   tableHead: {
     backgroundColor: '#fafafa'
@@ -36,6 +39,7 @@ const useStyles = makeStyles(theme => ({
   tableCell: {
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
     ...theme.typography.body2,
+    minWidth: 160,
     lineHeight: '48px',
     padding: '0 24px'
   },
@@ -77,6 +81,9 @@ const useStyles = makeStyles(theme => ({
   },
   pointer: {
     cursor: 'pointer'
+  },
+  pagination: {
+    marginLeft: 'auto'
   }
 }));
 
@@ -410,73 +417,70 @@ const CustomizedTable = props => {
             [classes.loadingIconOn]: loading
           })}
         />
-        <Table hover className={classes.table}>
-          <TableHead className={classes.tableHead}>
-            <TableRow>
-              {columns.map(e => {
-                const data = columnToCell(e);
-                if (data.options.sorting) {
-                  const isAlignCenter = data.align === 'center';
+        <div className={classes.tableWrapper}>
+          <Table hover className={classes.table}>
+            <TableHead className={classes.tableHead}>
+              <TableRow>
+                {columns.map(e => {
+                  const data = columnToCell(e);
+                  if (data.options.sorting) {
+                    const isAlignCenter = data.align === 'center';
 
-                  return (
-                    <TableQuery
-                      {...data}
-                      key={data.key}
-                      className={classes.tableHeadCell}
-                    >
-                      <TableSortLabel
-                        className={clsx({
-                          [classes.tableCellSort]: isAlignCenter
-                        })}
-                        active={orderBy === data.key}
-                        direction={order}
-                        onClick={e => createSortHandler(e, data.key)}
+                    return (
+                      <TableQuery
+                        {...data}
+                        key={data.key}
+                        className={classes.tableHeadCell}
                       >
-                        {data.text}
-                      </TableSortLabel>
-                    </TableQuery>
-                  );
-                } else {
-                  return (
-                    <TableQuery
-                      {...data}
-                      key={data.key}
-                      className={classes.tableHeadCell}
-                    />
-                  );
-                }
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {!rootOrder
-              ? GenerateBody(stableSort(rows, getSorting(order, orderBy)))
-              : GenerateBodyWithRootOrder(rows)}
-            {emptyRows > 0 && pagination && (
-              <TableRow style={{ height: 49 * emptyRows }}>
-                <TableCell colSpan={6} />
+                        <TableSortLabel
+                          className={clsx({
+                            [classes.tableCellSort]: isAlignCenter
+                          })}
+                          active={orderBy === data.key}
+                          direction={order}
+                          onClick={e => createSortHandler(e, data.key)}
+                        >
+                          {data.text}
+                        </TableSortLabel>
+                      </TableQuery>
+                    );
+                  } else {
+                    return (
+                      <TableQuery
+                        {...data}
+                        key={data.key}
+                        className={classes.tableHeadCell}
+                      />
+                    );
+                  }
+                })}
               </TableRow>
-            )}
-            {footer}
-          </TableBody>
-          {pagination && (
-            <TableFooter>
-              {pagination && (
-                <TableRow>
-                  <TablePagination
-                    colSpan={columnsLength}
-                    count={rowsLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    rowsPerPageOptions={rowsPerPageOptions}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                  />
+            </TableHead>
+            <TableBody>
+              {!rootOrder
+                ? GenerateBody(stableSort(rows, getSorting(order, orderBy)))
+                : GenerateBodyWithRootOrder(rows)}
+              {emptyRows > 0 && pagination && (
+                <TableRow style={{ height: 49 * emptyRows }}>
+                  <TableCell colSpan={columnsLength} />
                 </TableRow>
               )}
-            </TableFooter>
-          )}
-        </Table>
+              {footer}
+            </TableBody>
+          </Table>
+        </div>
+        {pagination && (
+          <TablePagination
+            component="div"
+            colSpan={columnsLength}
+            count={rowsLength}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={rowsPerPageOptions}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        )}
       </div>
     </Paper>
   );

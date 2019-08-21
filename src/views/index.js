@@ -10,4 +10,5 @@ import * as Settings from './Settings';
 import * as Employee from './Employee';
 import * as Inventory from './Inventory';
 import * as Library from './Library';
-export { Settings, Employee, Inventory, Library };
+import * as Reports from './Reports';
+export { Settings, Employee, Inventory, Library, Reports };
